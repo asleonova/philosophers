@@ -7,10 +7,13 @@ HEADER = ./philo_one.h \
 
 SRCS = ./srcs/philo_one.c \
 		./srcs/errors.c \
-		./srcs/parsing.c \
-		./srcs/utils.c \
+		./srcs/get_time.c \
 		./srcs/init_mutex.c \
-		./srcs/init_philo.c
+		./srcs/init_philo.c \
+		./srcs/init_threads.c \
+		./srcs/parsing.c \
+		./srcs/print_status.c \
+		./srcs/utils.c
 
 OBJ = $(SRCS:%.c=%.o)
 

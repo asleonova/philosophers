@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <stdlib.h>
+#include <sys/time.h>
 
 # define SUCCESS 0
 # define FAIL 1
@@ -22,16 +23,17 @@
     of a philosopher.
 
     example of parameters to the program: 
-    ./philo_ont 5 800 200 200 3
+    ./philo_one 5 800 200 200 3
 
 */
-pthread_mutex_t *print_status;
-int start_time;
+pthread_mutex_t *g_print_status;
+long g_start_time;
 
 typedef struct s_philo
 {
     int philo_id;
     int time_to_eat;
+    int wait_fork;
     int time_to_die;
     int time_to_sleep;
     int num_must_eat;
@@ -58,4 +60,7 @@ int ft_strlen(char *str);
 int print_error(char *error);
 int parse_params(t_sim *sim, int ac, char **av);
 void init_philo(t_sim *sim);
-void init_mutexes_arrs(t_sim *sim);
+long    get_time_val(void);
+int         start_philo_thread(t_sim *sim);
+void *philosophers(void *philos);
+void print_status(char *status, t_philo *philo);

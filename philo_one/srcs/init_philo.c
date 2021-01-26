@@ -8,6 +8,7 @@ void init_philo(t_sim *sim)
     count = sim->philo_num;
     i = 0;
     sim->philos = malloc(sizeof(t_philo) * count);
+    sim->forks = malloc(sizeof(pthread_mutex_t) * sim->philo_num);
     while (i < count)
     {
         sim->philos[i].philo_id = i + 1;
@@ -21,6 +22,7 @@ void init_philo(t_sim *sim)
             sim->philos[i].right_fork = &sim->forks[i + 1];
         else
             sim->philos[i].right_fork = &sim->forks[0]; // for the last philosopher
+        pthread_mutex_init(&sim->forks[i], NULL);
         i++;
     }
 }
