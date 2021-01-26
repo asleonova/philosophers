@@ -26,22 +26,22 @@
     ./philo_one 5 800 200 200 3
 
 */
-pthread_mutex_t *g_print_status;
+pthread_mutex_t g_print_status;
+pthread_mutex_t g_check_death;
 long g_start_time;
 
 typedef struct s_philo
 {
+    int philo_num;
     int philo_id;
     int time_to_eat;
-    int wait_fork;
     int time_to_die;
     int time_to_sleep;
     int num_must_eat;
     int is_dead;
+    long start_eating;
     pthread_mutex_t *left_fork;
     pthread_mutex_t *right_fork;
-    
-
 }               t_philo;
 
 typedef struct s_sim
@@ -51,6 +51,7 @@ typedef struct s_sim
     int time_to_eat;
     int time_to_sleep;
     int num_must_eat;
+    int is_dead;
     pthread_mutex_t *forks;
     t_philo *philos;
 
