@@ -29,6 +29,7 @@
 pthread_mutex_t g_print_status;
 pthread_mutex_t g_check_death;
 long g_start_time;
+int is_dead;
 
 typedef struct s_philo
 {
@@ -39,6 +40,7 @@ typedef struct s_philo
     int time_to_sleep;
     int num_must_eat;
     int is_dead;
+    int meal_count;
     long start_eating;
     pthread_mutex_t *left_fork;
     pthread_mutex_t *right_fork;
@@ -64,4 +66,4 @@ void init_philo(t_sim *sim);
 long    get_time_val(void);
 int         start_philo_thread(t_sim *sim);
 void *philosophers(void *philos);
-void print_status(char *status, t_philo *philo);
+void print_status(char *status, t_philo *philo, int game_over);

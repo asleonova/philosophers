@@ -51,7 +51,7 @@ int parse_params(t_sim *sim, int ac, char **av)
         else
             sim->num_must_eat = 0; // this param is optional. so 0 means it's uninialised;
 		if (check_if_num_positive(sim) == FAIL)
-            res = print_error("Error: options must contain only positive number (in the range of 0 to 1000)\n");
+            res = print_error("Error: options must contain only positive number (in the range of 0 to 10000)\n");
 		if (sim->philo_num < 2)
 			res = print_error("Error: the min num of philosophers must be 2\n");
 	}

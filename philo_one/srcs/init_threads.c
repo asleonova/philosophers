@@ -1,17 +1,5 @@
 #include "../includes/philo_one.h"
 
-// void	ft_sleep(t_philo *philo)
-// {
-// 	while (get_time_val() - philo->start_sleeping < philo->time_to_sleep)
-// 		usleep(1);
-// }
-
-// void	ft_eat(t_philo *philo)
-// {
-// 	while (get_time_val() - philo->start_sleeping < philo->time_to_sleep)
-// 		usleep(1);
-// }
-
 void	ft_sleep(int time)
 {
 	long start_time;
@@ -44,70 +32,40 @@ int         start_philo_thread(t_sim *sim)
 void has_taken_a_fork(t_philo *philo)
 {
 	pthread_mutex_lock(philo->left_fork);
-	print_status("has taken a fork", philo);
+	print_status("has taken a fork", philo, 0);
 	pthread_mutex_lock(philo->right_fork);
-	print_status("has taken a fork", philo);
+	print_status("has taken a fork", philo, 0);
 }
 
 void is_eating(t_philo *philo)
 {
-	//philo->start_eating = get_time_val();
-	printf("ADSAFDFFDFDS: %ld\n", philo->start_eating);
-	print_status("is eating", philo);
+	philo->start_eating = get_time_val();
+	print_status("is eating", philo, 0);
 	ft_sleep(philo->time_to_eat);
 	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);	
+	pthread_mutex_unlock(philo->right_fork);
+	philo->meal_count += 1;
+
 }
 
 void *philosophers(void *philos)
 {
     t_philo *philo;
 	
-
+	int i = 0;
     philo = (t_philo*)philos;
-    while (philo->is_dead)
+    while (!is_dead) // while philosophers are alive and not full
     {
-	   	philo->start_eating = get_time_val();	
+		if (!i) // needs to track the starving time in the first loop
+		{
+			philo->start_eating = get_time_val();
+			i++;
+		}
 		has_taken_a_fork(philo);
 		is_eating(philo);
-		print_status("is sleeping", philo);
-		// philo->start_sleeping = get_time_val();
+		print_status("is sleeping", philo, 0);
 		ft_sleep(philo->time_to_sleep);
-		print_status("is thinking", philo);
+		print_status("is thinking", philo, 0);
    }
 	return(NULL);
 }
-
-
-
-
-// void	wait_n_miliseconds(long miliseconds)
-// {
-// 	long	time_to;
-// 	long	current;
-
-// 	current = get_abs_time_stamp();
-// 	time_to = current + miliseconds;
-// 	usleep(miliseconds * 1000 - 7000);
-// 	while (1)
-// 	{
-// 		current = get_abs_time_stamp();
-// 		if (current >= time_to)
-// 			break ;
-// 		else
-// 			usleep(100);
-// 	}
-// }
-
-// ft_sleep(info->time_to_sleep);
-
-// void	ft_sleep(int milis)
-// {
-// 	long start_time;
-
-// 	start_time = get_time();
-// 	while (get_time() - start_time < milis)
-// 	{
-// 		usleep(500);
-// 	}
-// }
