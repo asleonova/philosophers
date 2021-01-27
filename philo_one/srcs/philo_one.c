@@ -14,7 +14,7 @@ int is_full(t_sim *sim)
     return (1);
 }
 
-int check_if_dead(t_sim *sim)
+int check_if_over(t_sim *sim)
 {
     int i;
 
@@ -59,10 +59,9 @@ int main(int ac, char **av)
     while (1) //while 1
     {
         usleep(2000);
-        if (!check_if_dead(&sim))
+        if (!check_if_over(&sim))
             break;
     }
-    // pthread_mutex_destroy(&g_check_death);
-    // pthread_mutex_destroy(&g_print_status);
+    clean_and_destroy(&sim);
     return (res);
 }

@@ -67,3 +67,5 @@ long    get_time_val(void);
 int         start_philo_thread(t_sim *sim);
 void *philosophers(void *philos);
 void print_status(char *status, t_philo *philo, int game_over);
+
+void    clean_and_destroy(t_sim *sim);

@@ -8,11 +8,11 @@ HEADER = ./philo_one.h \
 SRCS = ./srcs/philo_one.c \
 		./srcs/errors.c \
 		./srcs/get_time.c \
-		./srcs/init_mutex.c \
 		./srcs/init_philo.c \
-		./srcs/init_threads.c \
+		./srcs/philo_thread.c \
 		./srcs/parsing.c \
 		./srcs/print_status.c \
+		./srcs/clear.c \
 		./srcs/utils.c
 
 OBJ = $(SRCS:%.c=%.o)
