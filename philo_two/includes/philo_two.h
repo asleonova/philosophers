@@ -50,7 +50,7 @@ typedef struct s_philo
     int is_dead;
     int meal_count;
     long start_eating;
-    sem_t *left_fork;
+    sem_t *forks;
     sem_t *right_fork;
 }               t_philo;
 

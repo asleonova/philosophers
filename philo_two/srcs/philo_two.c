@@ -29,7 +29,7 @@ int check_if_over(t_sim *sim)
                 print_status("All philosophers are full now. Game over!\n", &sim->philos[i], 1);
                 is_dead = 1;
                 return (0);
-            }                
+            }         
             else if (get_time_val() - sim->philos[i].start_eating > sim->philos[i].time_to_die)
             {
                 print_status("died\n", &sim->philos[i], 1);

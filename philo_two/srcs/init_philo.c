@@ -17,11 +17,12 @@ void init_philo(t_sim *sim)
         sim->philos[i].num_must_eat = sim->num_must_eat;
         sim->philos[i].meal_count = 0;
         sim->philos[i].is_dead = 1;
-        sim->philos[i].left_fork = &sim->forks[i];
-        if (i < sim->philo_num - 1)
-            sim->philos[i].right_fork = &sim->forks[i + 1];
-        else
-            sim->philos[i].right_fork = &sim->forks[0]; // for the last philosopher
+        sim->philos[i].forks = sim->forks;
+        // sim->philos[i].left_fork = &sim->forks[i];
+        // if (i < sim->philo_num - 1)
+        //     sim->philos[i].right_fork = &sim->forks[i + 1];
+        // else
+        //     sim->philos[i].right_fork = &sim->forks[0]; // for the last philosopher
         // if (!(sim->forks[i] = sem_open(SEM_FORKS, O_CREAT, 0666, 1)))
         // {
         //     print_error("Error: failed to init forks semaphore\n");
