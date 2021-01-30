@@ -36,6 +36,7 @@
 */
 sem_t *g_print_status;
 sem_t *g_check_death;
+sem_t *g_forks;
 long g_start_time;
 int is_dead;
 
