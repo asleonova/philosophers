@@ -16,7 +16,7 @@ void init_philo(t_sim *sim)
         sim->philos[i].time_to_sleep = sim->time_to_sleep;
         sim->philos[i].num_must_eat = sim->num_must_eat;
         sim->philos[i].meal_count = 0;
-        sim->philos[i].is_dead = 1;
+        sim->philos[i].is_dead = 0;
       //  sim->philos[i].forks = sim->forks;
         // sim->philos[i].left_fork = &sim->forks[i];
         // if (i < sim->philo_num - 1)

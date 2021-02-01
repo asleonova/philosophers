@@ -8,9 +8,8 @@
 
 # define SEM_STATUS "/status"
 # define SEM_DEATH "/death"
-# define SEM_RIGHT_FORK "/right_fork"
-# define SEM_LEFT_FORK "/left_fork"
 # define SEM_FORKS "/forks"
+# define SEM_GRAB_FORKS "/grab_forks"
 
 # define SUCCESS 0
 # define FAIL 1
@@ -37,6 +36,8 @@
 sem_t *g_print_status;
 sem_t *g_check_death;
 sem_t *g_forks;
+sem_t *g_grab_forks;
+
 long g_start_time;
 int is_dead;
 

@@ -8,6 +8,7 @@ void    clean_and_destroy(t_sim *sim)
     sem_close(g_print_status);
     sem_close(g_check_death);
     sem_close(g_forks);
+    sem_close(g_grab_forks);
     // while (i < sim->philo_num)
     // {
     //     sem_close(g_forks);
