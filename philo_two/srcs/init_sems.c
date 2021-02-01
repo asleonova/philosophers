@@ -14,8 +14,8 @@ int						init_sems(t_sim *sim)
 		return (print_error("Error: failed to create a thread\n"));
 	if (!(g_forks = sem_open(SEM_FORKS, O_CREAT, 0666, sim->philo_num)))
 		return (print_error("Error: failed to create a thread\n"));
-	if (!(g_grab_forks = sem_open(SEM_FORKS, O_CREAT, 0666, 1)))
-		return (print_error("Error: failed to create a thread\n"));
+	// if (!(g_grab_forks = sem_open(SEM_FORKS, O_CREAT, 0666, 1)))
+	// 	return (print_error("Error: failed to create a thread\n"));
 
 	// while (i < sim->philo_num)
 	// {
