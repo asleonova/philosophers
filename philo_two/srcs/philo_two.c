@@ -28,8 +28,8 @@ int check_if_over(t_sim *sim)
             {
 
                 // printf("All philosophers are full now. Game over!\n");
-                print_status("All philosophers are full now. Game over!\n", &sim->philos[i], 1);
-                is_dead = 1;
+                //print_status("All philosophers are full now. Game over!\n", &sim->philos[i], 1);
+                is_dead = 2;
                 sim->philos[i].is_dead = 1;
                 sem_post(g_check_death);
                 return (0);
@@ -68,5 +68,7 @@ int main(int ac, char **av)
             break;
     }
     clean_and_destroy(&sim);
+    if (is_dead == 2)
+        printf("All philosophers are full now. Game over!\n"); 
     return (res);
 }

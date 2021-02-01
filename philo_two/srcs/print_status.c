@@ -4,7 +4,6 @@ void print_status(char *status, t_philo *philo, int game_over)
 {
     long time;
 
-    // (void)game_over;
     if (is_dead)
         return ;
     time = get_time_val() - g_start_time;
