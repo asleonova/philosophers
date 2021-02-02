@@ -26,8 +26,8 @@ int main()
 {
     pthread_t t;
 
-    pthread_create(&t, NULL, myturn, NULL);
+    //pthread_create(&t, NULL, myturn, NULL);
     yourturn();
-    pthread_join(t, NULL);
+    //pthread_join(t, NULL);
     return(0);
 }

@@ -52,8 +52,6 @@ typedef struct s_philo
     int is_dead;
     int meal_count;
     long start_eating;
-    sem_t *forks;
-    sem_t *right_fork;
 }               t_philo;
 
 typedef struct s_sim
@@ -64,7 +62,6 @@ typedef struct s_sim
     int time_to_sleep;
     int num_must_eat;
     int is_dead;
-    sem_t *forks;
     t_philo *philos;
 
 }               t_sim;

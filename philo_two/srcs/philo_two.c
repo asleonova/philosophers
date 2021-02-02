@@ -17,7 +17,6 @@ int is_full(t_sim *sim)
 int check_if_over(t_sim *sim)
 {
     int i;
-    // int id = sim->philos->philo_id;
     while (!is_dead)
     {
        i = 0;
@@ -26,18 +25,13 @@ int check_if_over(t_sim *sim)
             sem_wait(g_check_death);
             if (sim->num_must_eat != 0 && is_full(sim))
             {
-
-                // printf("All philosophers are full now. Game over!\n");
-                //print_status("All philosophers are full now. Game over!\n", &sim->philos[i], 1);
                 is_dead = 2;
-                sim->philos[i].is_dead = 1;
                 sem_post(g_check_death);
                 return (0);
             }         
             else if (get_time_val() - sim->philos[i].start_eating > sim->philos[i].time_to_die)
             {
                 print_status("died\n", &sim->philos[i], 1);
-                sim->philos[i].is_dead = 1;
                 is_dead = 1;
                 sem_post(g_check_death);
                 return (0);

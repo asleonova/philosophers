@@ -28,18 +28,14 @@ int         start_philo_thread(t_sim *sim)
 
 void has_taken_a_fork(t_philo *philo)
 {
-	//sem_wait(g_grab_forks);
 	sem_wait(g_forks);
 	print_status("has taken a fork", philo, 0);
 	sem_wait(g_forks);
 	print_status("has taken a fork", philo, 0);
-	//sem_post(g_grab_forks);
 }
 
 void is_eating(t_philo *philo)
 {
-	// int id = philo->philo_id;
-	
 	sem_wait(g_check_death);
 	philo->start_eating = get_time_val();
 	sem_post(g_check_death);
@@ -57,7 +53,6 @@ void *philosophers(void *philos)
 	
 	int i = 0;
     philo = (t_philo*)philos;
-	// int id = philo->philo_id;
     while (!is_dead) // while philosophers are alive and not full
     {
 		if (!i) // needs to track the starving time in the first loop
@@ -69,7 +64,6 @@ void *philosophers(void *philos)
 		}
 		has_taken_a_fork(philo);
 		is_eating(philo);
-	//	sem_wait(g_check_death);
 		if (is_dead == 1)
 			break ;
 		print_status("is sleeping", philo, 0);
@@ -77,8 +71,6 @@ void *philosophers(void *philos)
 			break ;
 		ft_sleep(philo->time_to_sleep);
 		print_status("is thinking", philo, 0);
-		//sem_post(g_check_death);
-		//i++;
    	}
 	return(NULL);
 }
