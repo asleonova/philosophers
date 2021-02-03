@@ -55,10 +55,11 @@ int main(int ac, char **av)
 	init_sems(&sim);
 	philo_process(&sim);
 	main_process(&sim);
+		if (is_dead == 2)
+		printf("All philosophers are full now. Game over!\n");
 	kill_processes(sim.philo_num, &sim);
 	clean_and_destroy(&sim);
-	if (is_dead == 2)
-		printf("All philosophers are full now. Game over!\n");
+	
 	//exit (0);
 	return (0);
 }

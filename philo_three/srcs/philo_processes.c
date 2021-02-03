@@ -15,7 +15,7 @@ void main_process(t_sim *sim)
 	int status;
 
 	count = 0;
-	i = -1;
+	i = 0;
 	//sleep(10);
 	while (i < sim->philo_num)
 	{
@@ -45,50 +45,102 @@ int is_full(t_sim *sim)
 	return (1);
 }
 
-int check_if_over(t_sim *sim)
+// int check_if_over(t_sim *sim)
+// {
+// 	int i;
+// 	while (!is_dead)
+// 	{
+// 		i = 0;
+// 		while (i < sim->philo_num)
+// 		{
+// 			sem_wait(g_check_death);
+// 			if (sim->num_must_eat != 0 && is_full(sim))
+// 			{
+// 				is_dead = 2;
+// 				sem_post(g_check_death);
+// 				//exit(1);
+// 				return (0);
+// 			}
+// 			else if (get_time_val() - sim->philos[i].start_eating > sim->philos[i].time_to_die)
+// 			{
+// 				print_status("died\n", &sim->philos[i], 1);
+// 				is_dead = 1;
+// 				sem_post(g_check_death);
+// 				//exit(0);
+// 			}
+// 			sem_post(g_check_death);
+// 			i++;
+// 		}
+// 	}
+// 	return (1);
+// }
+
+static	int	is_fed(t_philo *p)
 {
-	int i;
-	while (!is_dead)
-	{
-		i = 0;
-		while (i < sim->philo_num)
-		{
-			sem_wait(g_check_death);
-			if (sim->num_must_eat != 0 && is_full(sim))
-			{
-				is_dead = 2;
-				sem_post(g_check_death);
-				//exit(1);
-				return (0);
-			}
-			else if (get_time_val() - sim->philos[i].start_eating > sim->philos[i].time_to_die)
-			{
-				print_status("died\n", &sim->philos[i], 1);
-				is_dead = 1;
-				sem_post(g_check_death);
-				exit(0);
-			}
-			sem_post(g_check_death);
-			i++;
-		}
-	}
-	return (1);
+	if (p->num_must_eat != 0 && p->meal_count >= p->num_must_eat)
+		return (2);
+	else
+		return (0);
 }
 
-void *monitoring(void *monitor)
+static	int	has_died(t_philo *p)
 {
-	t_sim check_death;
+	long current_rel_time;
+	long starve_time;
 
-	check_death = *(t_sim *)monitor;
-
-	while (1) //while 1
+	current_rel_time = get_time_val();
+	starve_time = current_rel_time - p->start_eating;
+	if (starve_time > p->time_to_die)
 	{
-		usleep(2000);
-		if (!check_if_over(&check_death))
-			break;
+		is_dead = 1;
+		printf("died\n");
+		return (1);
+	}
+	else
+		return (0);
+}
+
+void		*monitoring(void *philo)
+{
+	t_philo	*p;
+
+	p = (t_philo*)philo;
+	while (1)
+	{
+		usleep(1000);
+		sem_wait(p->g_check_death);
+		if (has_died(p) == 1)
+		{
+			sem_post(p->g_check_death);
+			exit(0);
+		}
+		if (is_fed(p) == 2)
+		{
+			sem_post(p->g_check_death);
+			sem_wait(g_print_status);
+			is_dead = 2;
+			exit(1);
+		}
+		sem_post(p->g_check_death);
 	}
 	return (NULL);
 }
+
+// void *monitoring(void *monitor)
+// {
+// 	t_sim *sim;
+// 	int i;
+
+// 	sim = (t_sim *)monitor;
+// 	i = 0;
+// 	while (1) //while 1
+// 	{
+// 		usleep(2000);
+// 		//if (!check_if_over(&check_death))
+// 			//break;
+// 	}
+// 	return (NULL);
+// }
 
 int philo_process(t_sim *sim)
 {
@@ -105,15 +157,15 @@ int philo_process(t_sim *sim)
 			pthread_create(&monitor, NULL, monitoring, (void *)&sim->philos[i]);
 			philosophers((void *)&sim->philos[i]);
 		}
-		if (pid < 0)
+		if (pid == -1)
 		{
 			write(2, "error, fatal\n", 13);
 			exit(1);
 		}
 		sim->philos[i].processes = pid;
+		i++;
 		// мб тут запомнить все значения pid и туда записать
 		usleep(50);
-		i++;
 	}
 	return (SUCCESS);
 }

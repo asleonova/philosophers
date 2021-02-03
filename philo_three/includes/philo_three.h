@@ -37,7 +37,7 @@
 
 */
 sem_t *g_print_status;
-sem_t *g_check_death;
+//sem_t *g_check_death;
 sem_t *g_forks;
 
 long g_start_time;
@@ -55,6 +55,7 @@ typedef struct s_philo
 	int meal_count;
 	long start_eating;
 	pid_t processes;
+	sem_t *g_check_death;
 }               t_philo;
 
 typedef struct s_sim
@@ -65,6 +66,7 @@ typedef struct s_sim
 	int time_to_sleep;
 	int num_must_eat;
 	int is_dead;
+	sem_t *g_check_death;
 	t_philo *philos;
 
 }               t_sim;
