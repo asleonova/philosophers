@@ -31,14 +31,14 @@ void main_process(t_sim *sim)
 	return; // выходим в любом случае, когда прошлись по всем философам
 }
 
-int is_full(t_sim *sim)
+int is_full(t_philo *philo)
 {
 	int i;
 
 	i = 0;
-	while (i < sim->philo_num)
+	while (i < philo->philo_num)
 	{
-		if (sim->philos[i].meal_count < sim->num_must_eat)
+		if (philo[i].meal_count < philo->num_must_eat)
 			return (0);
 		i++;
 	}
@@ -75,53 +75,60 @@ int is_full(t_sim *sim)
 // 	return (1);
 // }
 
-static	int	is_fed(t_philo *p)
+// static	int	is_fed(t_philo *p)
+// {
+// 	if (p->num_must_eat != 0 && p->meal_count >= p->num_must_eat)
+// 		return (2);
+// 	else
+// 		return (0);
+// }
+
+// static	int	has_died(t_philo *p)
+// {
+// 	long starve_time;
+
+// 	starve_time = get_time_val() - p->start_eating;
+// 	if (starve_time > p->time_to_die)
+// 	{
+// 		is_dead = 1;
+// 		printf("died\n");
+// 		return (1);
+// 	}
+// 	else
+// 		return (0);
+// }
+
+void		*monitoring(void *monitor)
 {
-	if (p->num_must_eat != 0 && p->meal_count >= p->num_must_eat)
-		return (2);
-	else
-		return (0);
-}
-
-static	int	has_died(t_philo *p)
-{
-	long current_rel_time;
-	long starve_time;
-
-	current_rel_time = get_time_val();
-	starve_time = current_rel_time - p->start_eating;
-	if (starve_time > p->time_to_die)
-	{
-		is_dead = 1;
-		printf("died\n");
-		return (1);
-	}
-	else
-		return (0);
-}
-
-void		*monitoring(void *philo)
-{
-	t_philo	*p;
-
-	p = (t_philo*)philo;
+	t_philo	*philo;
+	
+	philo = (t_philo*)monitor;
 	while (1)
 	{
 		usleep(1000);
-		sem_wait(p->g_check_death);
-		if (has_died(p) == 1)
+		sem_wait(philo->g_check_death);
+		if (philo->num_must_eat != 0 && philo->meal_count >= philo->num_must_eat)
 		{
-			sem_post(p->g_check_death);
+			sem_post(philo->g_check_death);
+			sem_wait(g_print_status);
+			printf("All philosophers are full now. Game over!\n");
+			exit (0);
+		}
+		if (get_time_val() - philo->start_eating > philo->time_to_die)
+		{
+			print_status("died\n", philo, 1);
+			sem_post(philo->g_check_death);
 			exit(0);
 		}
-		if (is_fed(p) == 2)
-		{
-			sem_post(p->g_check_death);
-			sem_wait(g_print_status);
-			is_dead = 2;
-			exit(1);
-		}
-		sem_post(p->g_check_death);
+		// if (is_fed(p) == 2)
+		// {
+		// 	sem_post(philo->g_check_death);
+		// 	sem_wait(g_print_status);
+		// 	is_dead = 2;
+		// 	printf("All are fed\n");
+		// 	exit(0);
+		// }
+		sem_post(philo->g_check_death);
 	}
 	return (NULL);
 }

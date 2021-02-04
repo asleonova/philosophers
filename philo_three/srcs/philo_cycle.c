@@ -25,7 +25,6 @@ void *philosophers(void *philos)
 	t_philo *philo;
 
 	int i = 0;
-	int count = 0;
 	philo = (t_philo *)philos;
 	while (1) // while philosophers are alive and not full
 	{
@@ -38,17 +37,21 @@ void *philosophers(void *philos)
 		}
 		has_taken_a_fork(philo);
 		is_eating(philo);
-		count += 1;
 		// if (is_dead)
 		// 	exit(0);
 		print_status("is sleeping", philo, 0);
-		if (philo->num_must_eat > 0 && count >= philo->num_must_eat)
-		{
-			if (is_dead != 0)
-				exit(1);
-			else
-				exit(0);
-		}
+		//if (philo->num_must_eat > 0 && count >= philo->num_must_eat)
+		//{
+			// if (is_dead != 0)
+			// {
+				//sem_post(philo->g_check_death);
+				//sem_wait(g_print_status);
+				//printf("All are fed\n");
+				//exit(0);
+			//}
+			//else
+			//	exit(0);
+		//}
 		// if (is_dead)
 		// 	exit(0);
 		ft_sleep(philo->time_to_sleep);
