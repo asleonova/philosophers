@@ -15,7 +15,6 @@ void init_philo(t_sim *sim)
 		sim->philos[i].time_to_sleep = sim->time_to_sleep;
 		sim->philos[i].num_must_eat = sim->num_must_eat;
 		sim->philos[i].meal_count = 0;
-		sim->philos[i].is_dead = 0;
 		sim->philos[i].g_check_death = sim->g_check_death;
 		sim->philos[i].processes = -1;
 		i++;

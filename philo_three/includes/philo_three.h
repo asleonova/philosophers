@@ -15,7 +15,6 @@
 # define SUCCESS 0
 # define FAIL 1
 # define EXITED 0
-# define IN_PROCESS 
 /*
 	philo_num - number of  philosophers and also number of forks
 
@@ -37,11 +36,9 @@
 
 */
 sem_t *g_print_status;
-//sem_t *g_check_death;
 sem_t *g_forks;
 
 long g_start_time;
-int is_dead;
 
 typedef struct s_philo
 {
@@ -51,7 +48,6 @@ typedef struct s_philo
 	int time_to_die;
 	int time_to_sleep;
 	int num_must_eat;
-	int is_dead;
 	int meal_count;
 	long start_eating;
 	pid_t processes;
@@ -65,7 +61,6 @@ typedef struct s_sim
 	int time_to_eat;
 	int time_to_sleep;
 	int num_must_eat;
-	int is_dead;
 	sem_t *g_check_death;
 	t_philo *philos;
 
