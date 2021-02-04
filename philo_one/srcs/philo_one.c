@@ -26,8 +26,9 @@ int check_if_over(t_sim *sim)
             pthread_mutex_lock(&g_check_death);
             if (sim->num_must_eat != 0 && is_full(sim))
             {
-                print_status("All philosophers are full now. Game over!\n", &sim->philos[i], 1);
-                is_dead = 1;
+                pthread_mutex_lock(&g_print_status);
+                printf("All philosophers are full now. Game over!\n");
+                is_dead = 2;
                 return (0);
             }                
             else if (get_time_val() - sim->philos[i].start_eating > sim->philos[i].time_to_die)

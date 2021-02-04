@@ -3,6 +3,7 @@
 void    clean_and_destroy(t_sim *sim)
 {
     int i;
+    
     i = 0;
     sem_post(g_print_status);
     sem_close(g_check_death);
@@ -11,5 +12,5 @@ void    clean_and_destroy(t_sim *sim)
         sem_post(g_forks);
         i++;
     }
-sem_close(g_forks);
+    sem_close(g_forks);
 }

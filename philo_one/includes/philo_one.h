@@ -31,6 +31,10 @@ pthread_mutex_t g_check_death;
 long g_start_time;
 int is_dead;
 
+/*
+t_philo - struct with paramenters for each philosopher
+*/
+
 typedef struct s_philo
 {
     int philo_num;
@@ -39,13 +43,15 @@ typedef struct s_philo
     int time_to_die;
     int time_to_sleep;
     int num_must_eat;
-    int is_dead;
     int meal_count;
     long start_eating;
     pthread_mutex_t *left_fork;
     pthread_mutex_t *right_fork;
 }               t_philo;
 
+/*
+t_sim - struct with parameters for starting the simulation
+*/
 typedef struct s_sim
 {
     int philo_num;
@@ -53,19 +59,17 @@ typedef struct s_sim
     int time_to_eat;
     int time_to_sleep;
     int num_must_eat;
-    int is_dead;
     pthread_mutex_t *forks;
     t_philo *philos;
 
 }               t_sim;
 
-int ft_strlen(char *str);
-int print_error(char *error);
-int parse_params(t_sim *sim, int ac, char **av);
-void init_philo(t_sim *sim);
+int     ft_strlen(char *str);
+int     print_error(char *error);
+int     parse_params(t_sim *sim, int ac, char **av);
+void    init_philo(t_sim *sim);
 long    get_time_val(void);
-int         start_philo_thread(t_sim *sim);
-void *philosophers(void *philos);
-void print_status(char *status, t_philo *philo, int game_over);
-
+int     start_philo_thread(t_sim *sim);
+void    *philosophers(void *philos);
+void    print_status(char *status, t_philo *philo, int game_over);
 void    clean_and_destroy(t_sim *sim);

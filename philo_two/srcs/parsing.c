@@ -10,7 +10,7 @@ static int	ft_atoi(char *str)
 	res = 0;
 	error = (ft_strlen(str));
 
-	if (error > 3)
+	if (error > 4)
 		return(-1);
 	if (str[0] == '\0')
 		return (-1);
@@ -51,11 +51,13 @@ int parse_params(t_sim *sim, int ac, char **av)
         else
             sim->num_must_eat = 0; // this param is optional. so 0 means it's uninialised;
 		if (check_if_num_positive(sim) == FAIL)
-            res = print_error("Error: options must contain only positive number (in the range of 0 to 1000)\n");
-		if (sim->philo_num < 2)
-			res = print_error("Error: the min num of philosophers must be 2\n");
+            res = print_error("Error: all arguments must be a positive integer in the range of 0 to 10000.\n");
+		if (sim->philo_num < 2 || sim->philo_num > 200)
+			res = print_error("Error: the num of philosophers must be at least 2 and no more than 200.\n");
 	}
 	else 
-		res = print_error("Bad number of arguments\n");
+		res = print_error("Error: bad number of arguments.\n"
+		"Correct usage: [number of philosophers] [time to die]"
+		" [time to eat] [time to sleep] ([number of times each philosopher must eat]).\n");
 	return (res);
 }

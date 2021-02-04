@@ -14,6 +14,7 @@ void    clean_and_destroy(t_sim *sim)
     }
     sem_close(g_forks);
     sem_close(sim->g_check_death);
+    free(sim->philos);
  }
 
 

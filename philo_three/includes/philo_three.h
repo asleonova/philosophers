@@ -1,8 +1,8 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <stdlib.h>
-#include <sys/time.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <pthread.h>
+# include <stdlib.h>
+# include <sys/time.h>
 # include <sys/wait.h>
 # include <signal.h>
 # include <semaphore.h>
@@ -14,7 +14,6 @@
 
 # define SUCCESS 0
 # define FAIL 1
-# define EXITED 0
 /*
 	philo_num - number of  philosophers and also number of forks
 
@@ -40,6 +39,10 @@ sem_t *g_forks;
 
 long g_start_time;
 
+/*
+t_philo - struct with paramenters for each philosopher
+*/
+
 typedef struct s_philo
 {
 	int philo_num;
@@ -53,6 +56,10 @@ typedef struct s_philo
 	pid_t processes;
 	sem_t *g_check_death;
 }               t_philo;
+
+/*
+t_sim - struct with parameters for starting the simulation
+*/
 
 typedef struct s_sim
 {
@@ -77,5 +84,5 @@ void 		print_status(char *status, t_philo *philo, int game_over);
 void		main_process(t_sim *sim);
 void    	clean_and_destroy(t_sim *sim);
 int			init_sems(t_sim *sim);
-void	kill_processes(int num, t_sim *sim);
+void		kill_processes(int num, t_sim *sim);
 void		ft_sleep(int time);
