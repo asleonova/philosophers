@@ -1,0 +1,3 @@
+# philosophers
+
+что-то тут
