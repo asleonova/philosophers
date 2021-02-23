@@ -16,9 +16,9 @@ Use `make` or `make re` to compile the project in each folder. There are 4 manda
 The program shows the current timestamp in milliseconds of current activity. The simulation stops if the philosopher dies or if specified, when each philosopher has eaten the number of times specified in the option. 
 
 
-As mentioned above, there are 3 approaches of solving the Dining Philosophers Problem:
-1. ./philo_one - Using mutex for each fork, each philosopher is a thread (One fork between each philosopher, therefore there is a fork at the right and at the left of each philosopher - it's a part of the subject).
-2. ./philo_two - Using semaphores to represent the forks, each philosooher is a thread (All the forks are in the middle of the table - it's a part of the subject).
-3. ./philo_three - sing semaphores to represent the forks, each philosooher is a process (All the forks are in the middle of the table - it's a part of the subject).
+**As mentioned above, there are 3 approaches of solving the Dining Philosophers Problem:**
+1. `./philo_one` - Using mutex for each fork, each philosopher is a thread (One fork between each philosopher, therefore there is a fork at the right and at the left of each philosopher - it's a part of the subject).
+2. `./philo_two` - Using semaphores to represent the forks, each philosooher is a thread (All the forks are in the middle of the table - it's a part of the subject).
+3. `./philo_three` - sing semaphores to represent the forks, each philosooher is a process (All the forks are in the middle of the table - it's a part of the subject).
 
 Enjoy! 😉 
